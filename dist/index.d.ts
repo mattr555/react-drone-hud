@@ -1,1 +1,1 @@
-export { default as DroneHud } from "./DroneHud";
+export { default } from "./DroneHud";

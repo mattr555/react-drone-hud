@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DroneHud } from "../../src";
+import DroneHud from "../../src";
 import "./style.css";
 
 declare const module: any;

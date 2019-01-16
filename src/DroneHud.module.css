@@ -21,7 +21,6 @@
 
 .fullWrap {
     composes: absolute;
-    margin-top: 20px;
 }
 
 .horizon {

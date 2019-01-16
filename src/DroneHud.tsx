@@ -58,7 +58,9 @@ interface Props {
     pitch: number;
     roll: number;
     airspeed?: number;
+    airspeedTickSize?: number;
     altitude?: number;
+    altitudeTickSize?: number;
     heading?: number;
     height?: number;
     width?: number;
@@ -76,75 +78,93 @@ const DroneHud = ({
     pitch,
     roll,
     airspeed,
+    airspeedTickSize = 5,
     altitude,
+    altitudeTickSize = 10,
     heading,
     height = 400,
     width = 400
-}: Props) => (
-    <div className={styles.container} style={{ height, width }}>
-        <div
-            className={styles.fullWrap}
-            style={{ transform: `rotate(${-roll}deg)` }}
-        >
+}: Props) => {
+    const shouldDisplayAirspeed = typeof airspeed == "number";
+    const shouldDisplayAltitude = typeof altitude == "number";
+    const shouldDisplayHeading = typeof heading == "number";
+
+    return (
+        <div className={styles.container} style={{ height, width }}>
+            <div
+                className={styles.fullWrap}
+                style={{
+                    transform: `rotate(${-roll}deg)`,
+                    marginTop: shouldDisplayHeading ? 20 : 0
+                }}
+            >
+                <img
+                    src={horizon}
+                    className={styles.horizon}
+                    style={{ top: `${pitch * 2 - 150}%` }}
+                />
+                <div className={styles.horizonHider}>
+                    <div className={styles.horizonInner}>
+                        <img
+                            src={horizonTicks}
+                            className={styles.horizon}
+                            style={{
+                                top: `${pitch * 2 - 150}%`,
+                                objectFit: "cover"
+                            }}
+                        />
+                    </div>
+                </div>
+                <img className={styles.absolute} src={pitchRing} />
+            </div>
+
             <img
-                src={horizon}
-                className={styles.horizon}
-                style={{ top: `${pitch * 2 - 150}%` }}
+                className={styles.fullWrap}
+                src={planeIndicator}
+                style={{ marginTop: shouldDisplayHeading ? 20 : 0 }}
             />
-            <div className={styles.horizonHider}>
-                <div className={styles.horizonInner}>
+
+            {shouldDisplayAirspeed && (
+                <React.Fragment>
+                    <img src={verticalGauge} className={styles.verticalGauge} />
+                    <div className={styles.airspeedIndication}>
+                        {Math.round(airspeed)}
+                    </div>
+                    <VerticalTicks n={airspeed} tickSize={airspeedTickSize} />
+                </React.Fragment>
+            )}
+
+            {shouldDisplayAltitude && (
+                <React.Fragment>
                     <img
-                        src={horizonTicks}
-                        className={styles.horizon}
-                        style={{
-                            top: `${pitch * 2 - 150}%`,
-                            objectFit: "cover"
-                        }}
+                        src={verticalGauge}
+                        className={styles.verticalGaugeRight}
                     />
+                    <div className={styles.altitudeIndication}>
+                        {Math.round(altitude)}
+                    </div>
+                    <VerticalTicks
+                        n={altitude}
+                        right
+                        tickSize={altitudeTickSize}
+                    />
+                </React.Fragment>
+            )}
+
+            {shouldDisplayHeading && (
+                <div className={styles.headingBar}>
+                    <img
+                        src={headingBar}
+                        className={styles.headingImg}
+                        style={{ left: headingLeft(heading) }}
+                    />
+                    <div className={styles.headingIndication}>
+                        {Math.round(heading)}
+                    </div>
                 </div>
-            </div>
-            <img className={styles.absolute} src={pitchRing} />
+            )}
         </div>
-
-        <img className={styles.fullWrap} src={planeIndicator} />
-
-        {/* <div className={styles.absolute}>123</div> */}
-        {typeof airspeed === "number" && (
-            <React.Fragment>
-                <img src={verticalGauge} className={styles.verticalGauge} />
-                <div className={styles.airspeedIndication}>
-                    {Math.round(airspeed)}
-                </div>
-                <VerticalTicks n={airspeed} />
-            </React.Fragment>
-        )}
-
-        {typeof altitude === "number" && (
-            <React.Fragment>
-                <img
-                    src={verticalGauge}
-                    className={styles.verticalGaugeRight}
-                />
-                <div className={styles.altitudeIndication}>
-                    {Math.round(altitude)}
-                </div>
-                <VerticalTicks n={altitude} right tickSize={5} />
-            </React.Fragment>
-        )}
-
-        {typeof heading == "number" && (
-            <div className={styles.headingBar}>
-                <img
-                    src={headingBar}
-                    className={styles.headingImg}
-                    style={{ left: headingLeft(heading) }}
-                />
-                <div className={styles.headingIndication}>
-                    {Math.round(heading)}
-                </div>
-            </div>
-        )}
-    </div>
-);
+    );
+};
 
 export default DroneHud;
