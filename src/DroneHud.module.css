@@ -1,0 +1,145 @@
+.font {
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+.container {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    width: 400px;
+    height: 400px;
+}
+
+.absolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.fullWrap {
+    composes: absolute;
+    margin-top: 20px;
+}
+
+.horizon {
+    position: absolute;
+    width: 400%;
+    height: 400%;
+    top: -150%;
+    left: -150%;
+}
+
+.horizonHider {
+    position: absolute;
+    overflow: hidden;
+    top: 20%;
+    height: 80%;
+    left: 30%;
+    width: 40%;
+}
+
+.horizonInner {
+    position: absolute;
+    width: 125%;
+    height: 125%;
+    top: -25%;
+    left: -12.5%;
+}
+
+.verticalGauge {
+    position: absolute;
+    top: 25%;
+    height: 50%;
+    left: 0;
+    width: 50px;
+    transform: scaleX(1.5);
+}
+
+.verticalGaugeRight {
+    composes: verticalGauge;
+    transform: scaleX(-1.5);
+    right: 0;
+    left: auto;
+}
+
+.airspeedIndication {
+    composes: font;
+    font-weight: bold;
+
+    position: absolute;
+    height: 20px;
+    line-height: 20px;
+    margin-top: -10px;
+    background-color: #333;
+    width: 45px;
+    z-index: 10;
+    text-align: right;
+    top: 50%;
+}
+
+.altitudeIndication {
+    composes: airspeedIndication;
+    right: 0;
+    left: auto;
+    width: 45px;
+    text-align: left;
+}
+
+.verticalTickContainer {
+    composes: font;
+    height: 200px;
+    /* line-height: 200px;
+    margin-top: -100px; */
+
+    position: absolute;
+    top: calc(50% - 100px);
+}
+
+.verticalTickContainerRight {
+    composes: verticalTickContainer;
+    right: 0;
+    left: auto;
+}
+
+.verticalTick {
+    margin-top: 20px;
+    height: 20px;
+    width: 40px;
+    text-align: right;
+}
+
+.verticalTickRight {
+    composes: verticalTick;
+    text-align: left;
+}
+
+.headingBar {
+    position: relative;
+    top: 0;
+    width: 400px;
+    margin: 0 auto;
+    overflow: hidden;
+    height: 30px;
+}
+
+.headingImg {
+    position: absolute;
+    display: inline-block;
+    transform: scaleX(2);
+    height: 30px;
+}
+
+.headingIndication {
+    composes: font;
+    font-weight: bold;
+    text-align: center;
+
+    position: relative;
+    margin: 0 auto;
+    width: 50px;
+
+    background-color: rgba(51, 51, 51, 0.7);
+}

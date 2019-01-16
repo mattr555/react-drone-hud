@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "lib": [
+      "es2015",
+      "es2015.promise",
+      "es2016",
+      "es6",
+      "dom"
+    ],
+    "outDir": "./dist/",
+    "declaration": true,
+    "declarationDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es5",
+    "jsx": "react",
+    "allowJs": false,
+    "noErrorTruncation": true,
+    "skipLibCheck": true,
+    "types": [
+      "node"
+    ]
+  },
+  "files": [
+    "src/index.tsx"
+  ],
+  "compileOnSave": false
+}

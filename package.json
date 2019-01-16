@@ -1,0 +1,130 @@
+{
+    "name": "react-drone-hud",
+    "version": "0.0.1",
+    "description": "About",
+    "repository": {
+        "type": "git",
+        "url": ""
+    },
+    "sideEffects": false,
+    "main": "./dist/index.js",
+    "typings": "./dist/index.d.ts",
+    "scripts": {
+        "start": "webpack-dev-server --config webpack.dev.config.js --devtool eval --progress --inline --hot --content-base dev/public --open --host 127.0.0.1 --port 3200 ",
+        "start-at": "webpack-dev-server --config webpack.dev.config.js --devtool eval --progress --inline --hot --content-base dev/public --open --host 127.0.0.1 --port",
+        "lint": "tslint './src/**/*.ts*' --format stylish --force",
+        "build-analyze": "set NODE_ENV=production && webpack --config webpack.dist.analyze.config.js",
+        "build": "rimraf ./dist/ && yarn run .build-index.d.ts && yarn run .build-dist",
+        ".build-index.d.ts": "tsc && rm ./dist/index.js && yarn run .build-index.d.ts-clear",
+        ".build-index.d.ts-clear": "cd dist/ && find . -name \\*.js -delete && cd ..",
+        ".build-dist": "set NODE_ENV=production && webpack --config webpack.dist.config.js",
+        "release": "yarn run build && yarn run publish-push",
+        "publish-push": "git add -u && git add -A && git commit -m \"last minute changes\"; yarn version --patch && yarn publish && git push && git push --tags",
+        "test": "jest --coverage --no-cache --runInBand",
+        "test-watch": "jest --watch --verbose --runInBand",
+        "update-release": "yarn upgrade && git add -u && git add -A && git commit -m \"last minute update-release changes\"; yarn run release",
+        "build-lander": "cd dev/ && rimraf ./dist/ && webpack --config webpack.lander.config.js && cp public/index.html dist && cd ..",
+        "deploy-lander": "yarn run build-lander && gh-pages -d dev/dist"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "dependencies": {
+        "react": "^16.0.0",
+        "react-dom": "^16.0.0"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.1.2",
+        "@babel/core": "^7.1.2",
+        "@babel/preset-env": "^7.1.0",
+        "@babel/preset-react": "^7.0.0",
+        "@types/enzyme": "^3.1.15",
+        "@types/enzyme-adapter-react-16": "^1.0.3",
+        "@types/jest": "^23.3.9",
+        "@types/node": "^10.12.2",
+        "@types/react": "^16.7.6",
+        "@types/react-dom": "^16.0.9",
+        "autoprefixer": "^7.2.6",
+        "awesome-typescript-loader": "^5.2.1",
+        "babel-jest": "20.0.3",
+        "babel-loader": "^8.0.4",
+        "babel-preset-react-app": "^6.1.0",
+        "chokidar": "^1.7.0",
+        "circular-dependency-plugin": "^4.0.0",
+        "css-loader": "^1.0.1",
+        "dyna-showcase": "^1.1.3",
+        "enzyme": "^3.7.0",
+        "enzyme-adapter-react-16": "^1.6.0",
+        "enzyme-to-json": "^3.3.4",
+        "file-loader": "^2.0.0",
+        "font-awesome": "^4.7.0",
+        "gh-pages": "^2.0.1",
+        "html-webpack-plugin": "^3.2.0",
+        "identity-obj-proxy": "^3.0.0",
+        "image-webpack-loader": "^4.5.0",
+        "jest": "^23.6.0",
+        "jest-cli": "^23.6.0",
+        "jest-junit": "^1.5.1",
+        "jsdom": "11.5.1",
+        "jsdom-global": "3.0.2",
+        "less": "^3.9.0",
+        "less-loader": "^4.1.0",
+        "node-sass": "^4.10.0",
+        "postcss-cli": "^4.1.0",
+        "postcss-loader": "^2.1.6",
+        "prettier": "^1.15.3",
+        "raw-loader": "^0.5.1",
+        "react-addons-test-utils": "^15.6.2",
+        "react-hot-loader": "^4.3.12",
+        "react-test-renderer": "^16.6.1",
+        "rimraf": "^2.6.1",
+        "sass-loader": "^7.1.0",
+        "source-map-loader": "0.1.5",
+        "style-loader": "^0.23.1",
+        "svg-inline-loader": "^0.8.0",
+        "ts-jest": "^20.0.6",
+        "tslint": "^5.11.0",
+        "typescript": "^3.1.6",
+        "uglifyjs-webpack-plugin": "^2.0.1",
+        "url-loader": "^0.5.9",
+        "webpack": "^4.25.1",
+        "webpack-bundle-analyzer": "^2.13.1",
+        "webpack-cli": "^3.1.2",
+        "webpack-dev-middleware": "^3.4.0",
+        "webpack-dev-server": "^3.1.10",
+        "webpack-merge": "^4.1.4"
+    },
+    "jest": {
+        "setupTestFrameworkScriptFile": "./tests/setup/testSetup.js",
+        "automock": false,
+        "collectCoverage": false,
+        "testEnvironment": "jsdom",
+        "transform": {
+            ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+        },
+        "testRegex": "(src|tests)/.*\\.(test|spec)\\.(ts|tsx|js|jsx)$",
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js",
+            "jsx"
+        ],
+        "moduleNameMapper": {
+            "\\.(css|less|scss|jpg|png|svg|gif)$": "identity-obj-proxy"
+        },
+        "coverageDirectory": "coverage",
+        "collectCoverageFrom": [
+            "src/**/*.{ts,tsx,js,jsx}",
+            "!src/**/*.d.ts"
+        ],
+        "snapshotSerializers": [
+            "enzyme-to-json/serializer"
+        ]
+    },
+    "jest-junit": {
+        "output": "./coverage/junit.xml"
+    },
+    "prettier": {
+        "tabWidth": 4
+    }
+}
