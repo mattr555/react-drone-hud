@@ -1,14 +1,18 @@
 {
     "name": "react-drone-hud",
-    "version": "0.0.1",
-    "description": "About",
+    "version": "0.0.1-rc0",
+    "description": "Heads-Up Display for React-based drone groundstations",
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "https://github.com/mattr555/react-drone-hud.git"
     },
     "sideEffects": false,
     "main": "./dist/index.js",
     "typings": "./dist/index.d.ts",
+    "files": [
+        "./dist/",
+        "example.png"
+    ],
     "scripts": {
         "start": "webpack-dev-server --config webpack.dev.config.js --devtool eval --progress --inline --hot --content-base dev/public --open --host 127.0.0.1 --port 3200 ",
         "start-at": "webpack-dev-server --config webpack.dev.config.js --devtool eval --progress --inline --hot --content-base dev/public --open --host 127.0.0.1 --port",
@@ -23,11 +27,11 @@
         "test": "jest --coverage --no-cache --runInBand",
         "test-watch": "jest --watch --verbose --runInBand",
         "update-release": "yarn upgrade && git add -u && git add -A && git commit -m \"last minute update-release changes\"; yarn run release",
-        "build-lander": "cd dev/ && rimraf ./dist/ && webpack --config webpack.lander.config.js && cp public/{index.html,style.css} dist && cd ..",
+        "build-lander": "cd dev/ && rimraf ./dist/ && webpack --config webpack.lander.config.js && cp public/index.html dist && cp public/style.css dist && cd ..",
         "deploy-lander": "yarn run build-lander && gh-pages -d dev/dist"
     },
     "keywords": [],
-    "author": "",
+    "author": "Matthew Ramina <matt@mattr555.me>",
     "license": "MIT",
     "dependencies": {
         "react": "^16.0.0",
