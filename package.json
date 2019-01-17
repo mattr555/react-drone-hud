@@ -23,7 +23,7 @@
         "test": "jest --coverage --no-cache --runInBand",
         "test-watch": "jest --watch --verbose --runInBand",
         "update-release": "yarn upgrade && git add -u && git add -A && git commit -m \"last minute update-release changes\"; yarn run release",
-        "build-lander": "cd dev/ && rimraf ./dist/ && webpack --config webpack.lander.config.js && cp public/index.html dist && cd ..",
+        "build-lander": "cd dev/ && rimraf ./dist/ && webpack --config webpack.lander.config.js && cp public/{index.html,style.css} dist && cd ..",
         "deploy-lander": "yarn run build-lander && gh-pages -d dev/dist"
     },
     "keywords": [],

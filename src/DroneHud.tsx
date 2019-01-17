@@ -68,7 +68,7 @@ interface Props {
 
 const headingLeft = (n: number): number => {
     n %= 360;
-    if (n >= 0 && n < 270) {
+    if (n >= 0 && n < 210) {
         return -160 - 2 * n;
     }
     return -160 + 2 * (360 - n);
